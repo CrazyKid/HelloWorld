@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.helloworld.DisplayMessageActivity"
+            android:name="com.example.helloworld.DisplayActivity"
             android:label="@string/title_activity_display_message"
             android:parentActivityName="com.example.helloworld.MainActivity" >
             <meta-data

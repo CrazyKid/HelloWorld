@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -42,7 +43,7 @@ public class FileDialog extends ListActivity {
 	/**
 	 * Diretorio raiz.
 	 */
-	private static final String ROOT = "/";
+	private static final String ROOT = MobileUtil.getSDPath();
 
 	/**
 	 * Parametro de entrada da Activity: path inicial. Padrao: ROOT.
@@ -96,6 +97,7 @@ public class FileDialog extends ListActivity {
 	private File selectedFile;
 	private HashMap<String, Integer> lastPositions = new HashMap<String, Integer>();
 
+	Integer btnId = null;
 	/**
 	 * Called when the activity is first created. Configura todos os parametros
 	 * de entrada e das VIEWS..
@@ -103,6 +105,9 @@ public class FileDialog extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		btnId = getIntent().getIntExtra(MainActivity.BTN_ID, 0);
+		
 		setResult(RESULT_CANCELED, getIntent());
 
 		setContentView(R.layout.activity_file_dialog);
@@ -120,9 +125,10 @@ public class FileDialog extends ListActivity {
 				if (selectedFile != null) {
 					getIntent().putExtra(RESULT_PATH, selectedFile.getPath());
 					setResult(RESULT_OK, getIntent());
-					finish();
+					send(getIntent().getStringExtra(RESULT_PATH));
 				}
 			}
+			
 		});
 
 		final Button newButton = (Button) findViewById(R.id.fdButtonNew);
@@ -183,6 +189,18 @@ public class FileDialog extends ListActivity {
 		getDir(startPath);
 	}
 
+	/**
+	 * ´«µÝ
+	 * @param strExtra
+	 * @param flag
+	 */
+	private void send(String strExtra) {
+		Intent intent = new Intent(this, MainActivity.class);
+		intent.putExtra(RESULT_PATH, strExtra);
+		intent.putExtra(MainActivity.BTN_ID, btnId);
+		startActivity(intent);
+	}
+	
 	private void getDir(String dirPath) {
 
 		boolean useAutoSelection = dirPath.length() < currentPath.length();

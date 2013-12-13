@@ -2,21 +2,48 @@ package com.example.helloworld;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 
 public class MainActivity extends Activity {
-
-	public final static String EXTRA_MESSAGE = "com.example.myfirstapp.MESSAGE";
 	
+	public static final String BTN_ID = "BTN_ID";
+	public static final String ENGLISH = "ENGLISH";
+	public static final String CHINESE = "CHINESE";
+
+	SharedPreferences sp = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        Intent intent = getIntent();
+        
+        
+        Context ctx = MainActivity.this;       
+        sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
+        //¥Ê»Î ˝æ›
+        Editor editor = sp.edit();
+        if (intent.getIntExtra(BTN_ID, 0) == R.id.selectEnglish) {
+        	editor.putString("epath", intent.getStringExtra(FileDialog.RESULT_PATH));
+        } else if (intent.getIntExtra(BTN_ID, 0) == R.id.selectChinese) {
+        	editor.putString("cpath", intent.getStringExtra(FileDialog.RESULT_PATH));
+        }
+        editor.commit();
+        
+        
+    	EditText e = (EditText) findViewById(R.id.edit_english);
+    	e.setText(sp.getString("epath", ""));
+    	EditText c = (EditText) findViewById(R.id.edit_chinese);
+    	c.setText(sp.getString("cpath", ""));
+    	
+    	
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -28,12 +55,15 @@ public class MainActivity extends Activity {
     /** Called when the user clicks the Send button */
     public void sendMessage(View view) {
         // Do something in response to button
-    	Intent intent = new Intent(this, DisplayMessageActivity.class);
+    	Intent intent = new Intent(this, DisplayActivity.class);
+    	intent.putExtra(ENGLISH, sp.getString("epath", ""));
+    	intent.putExtra(CHINESE, sp.getString("cpath", ""));
         startActivity(intent);
     }
     
     public void selectFile(View view) {
     	Intent intent = new Intent(this, FileDialog.class);
+    	intent.putExtra(BTN_ID, view.getId());
     	startActivity(intent);
     }
     
