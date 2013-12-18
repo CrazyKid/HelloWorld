@@ -44,6 +44,7 @@
 		        android:layout_weight="1"
 	        	android:layout_width="0dp"
 		        android:layout_height="wrap_content"
+		        android:fontFamily="Arial"
 		        android:hint="@string/edit_chinese" />
 		    
 		    <Button
@@ -60,7 +61,7 @@
 		    android:layout_height="100dp"
 		    android:orientation="horizontal">
 			<Button
-				 android:layout_width="wrap_content"
+				 android:layout_width="fill_parent"
 				 android:layout_height="wrap_content" 
 				 android:text="@string/button_send" 
 				 android:onClick="sendMessage" />

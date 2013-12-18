@@ -30,35 +30,34 @@ public final class R {
         public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
-        public static final int file=0x7f020000;
-        public static final int folder=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int icon=0x7f020003;
+        public static final int datu=0x7f020000;
+        public static final int def=0x7f020001;
+        public static final int file=0x7f020002;
+        public static final int folder=0x7f020003;
         public static final int one=0x7f020004;
         public static final int two=0x7f020005;
     }
     public static final class id {
         public static final int ViewFlipper1=0x7f0a0000;
-        public static final int action_settings=0x7f0a0011;
-        public static final int edit_chinese=0x7f0a000d;
-        public static final int edit_english=0x7f0a000b;
-        public static final int fdButtonCancel=0x7f0a0008;
-        public static final int fdButtonCreate=0x7f0a0009;
-        public static final int fdButtonNew=0x7f0a0003;
-        public static final int fdButtonSelect=0x7f0a0004;
-        public static final int fdEditTextFile=0x7f0a0007;
-        public static final int fdLinearLayoutCreate=0x7f0a0005;
+        public static final int action_settings=0x7f0a0010;
+        public static final int edit_chinese=0x7f0a000c;
+        public static final int edit_english=0x7f0a000a;
+        public static final int fdButtonCancel=0x7f0a0007;
+        public static final int fdButtonCreate=0x7f0a0008;
+        public static final int fdButtonSelect=0x7f0a0003;
+        public static final int fdEditTextFile=0x7f0a0006;
+        public static final int fdLinearLayoutCreate=0x7f0a0004;
         public static final int fdLinearLayoutList=0x7f0a0001;
         public static final int fdLinearLayoutSelect=0x7f0a0002;
-        public static final int fdrowimage=0x7f0a000f;
-        public static final int fdrowtext=0x7f0a0010;
-        public static final int path=0x7f0a000a;
-        public static final int selectChinese=0x7f0a000e;
-        public static final int selectEnglish=0x7f0a000c;
-        public static final int textViewFilename=0x7f0a0006;
+        public static final int fdrowimage=0x7f0a000e;
+        public static final int fdrowtext=0x7f0a000f;
+        public static final int path=0x7f0a0009;
+        public static final int selectChinese=0x7f0a000d;
+        public static final int selectEnglish=0x7f0a000b;
+        public static final int textViewFilename=0x7f0a0005;
     }
     public static final class layout {
-        public static final int activity_display_message=0x7f030000;
+        public static final int activity_display=0x7f030000;
         public static final int activity_file_dialog=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int file_dialog_row=0x7f030003;

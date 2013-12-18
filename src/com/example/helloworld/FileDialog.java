@@ -131,7 +131,7 @@ public class FileDialog extends ListActivity {
 			
 		});
 
-		final Button newButton = (Button) findViewById(R.id.fdButtonNew);
+		/*final Button newButton = (Button) findViewById(R.id.fdButtonNew);
 		newButton.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -141,7 +141,7 @@ public class FileDialog extends ListActivity {
 				mFileName.setText("");
 				mFileName.requestFocus();
 			}
-		});
+		});*/
 
 		selectionMode = getIntent().getIntExtra(SELECTION_MODE, SelectionMode.MODE_CREATE);
 
@@ -149,9 +149,9 @@ public class FileDialog extends ListActivity {
 
 		canSelectDir = getIntent().getBooleanExtra(CAN_SELECT_DIR, false);
 
-		if (selectionMode == SelectionMode.MODE_OPEN) {
+		/*if (selectionMode == SelectionMode.MODE_OPEN) {
 			newButton.setEnabled(false);
-		}
+		}*/
 
 		layoutSelect = (LinearLayout) findViewById(R.id.fdLinearLayoutSelect);
 		layoutCreate = (LinearLayout) findViewById(R.id.fdLinearLayoutCreate);
@@ -236,7 +236,7 @@ public class FileDialog extends ListActivity {
 			f = new File(currentPath);
 			files = f.listFiles();
 		}
-		myPath.setText(getText(R.string.location) + ": " + currentPath);
+		myPath.setText(currentPath);
 
 		if (!currentPath.equals(ROOT)) {
 
@@ -258,8 +258,10 @@ public class FileDialog extends ListActivity {
 		for (File file : files) {
 			if (file.isDirectory()) {
 				String dirName = file.getName();
-				dirsMap.put(dirName, dirName);
-				dirsPathMap.put(dirName, file.getPath());
+				if (!dirName.startsWith(".")) {
+					dirsMap.put(dirName, dirName);
+					dirsPathMap.put(dirName, file.getPath());
+				}
 			} else {
 				final String fileName = file.getName();
 				final String fileNameLwr = fileName.toLowerCase();
@@ -337,7 +339,7 @@ public class FileDialog extends ListActivity {
 					selectButton.setEnabled(true);
 				}
 			} else {
-				new AlertDialog.Builder(this).setIcon(R.drawable.icon)
+				new AlertDialog.Builder(this).setIcon(R.drawable.def)
 						.setTitle("[" + file.getName() + "] " + getText(R.string.cant_read_folder))
 						.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 

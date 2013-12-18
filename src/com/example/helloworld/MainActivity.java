@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
 	public static final String CHINESE = "CHINESE";
 
 	SharedPreferences sp = null;
+	Editor editor = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +29,7 @@ public class MainActivity extends Activity {
         Context ctx = MainActivity.this;       
         sp = ctx.getSharedPreferences("SP", MODE_PRIVATE);
         //¥Ê»Î ˝æ›
-        Editor editor = sp.edit();
+        editor = sp.edit();
         if (intent.getIntExtra(BTN_ID, 0) == R.id.selectEnglish) {
         	editor.putString("epath", intent.getStringExtra(FileDialog.RESULT_PATH));
         } else if (intent.getIntExtra(BTN_ID, 0) == R.id.selectChinese) {
@@ -56,6 +57,11 @@ public class MainActivity extends Activity {
     public void sendMessage(View view) {
         // Do something in response to button
     	Intent intent = new Intent(this, DisplayActivity.class);
+    	EditText e = (EditText) findViewById(R.id.edit_english);
+    	editor.putString("epath", e.getText().toString());
+    	EditText c = (EditText) findViewById(R.id.edit_chinese);
+    	editor.putString("cpath", c.getText().toString());
+    	editor.commit();
     	intent.putExtra(ENGLISH, sp.getString("epath", ""));
     	intent.putExtra(CHINESE, sp.getString("cpath", ""));
         startActivity(intent);

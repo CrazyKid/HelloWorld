@@ -11,7 +11,7 @@
     <string name="title_activity_display_message">Content</string>
     
     <string name="title_activity_file_dialog">FileDialog</string>
-    <string name="location">Location</string>
+    <string name="location">Curr:</string>
     <string name="cant_read_folder">folder can\'t be read!</string>
     <string name="nnew">New</string>
     <string name="select">Select</string>
