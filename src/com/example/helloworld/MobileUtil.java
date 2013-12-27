@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
 
 import org.apache.http.util.EncodingUtils;
 
@@ -22,7 +23,15 @@ import android.os.Environment;
  */
 public class MobileUtil {
 	
+	/**
+	 * GBK编码
+	 */
 	public static final String GBK = "GBK";
+	
+	/**
+	 * 结束符
+	 */
+	public static final String END = "END";
 
 	public static String getSDPath() {
 		File sdDir = null;
@@ -35,17 +44,42 @@ public class MobileUtil {
 		return sdDir.toString();
 	}
 	
-	public static String readFile(String filename, String encoding) {
+	/**
+	 * 分行读取txt
+	 * 
+	 * @param filePath 文件
+	 * @param encoding 编码
+	 * @param pages 页数
+	 * @param rows 每页行数
+	 * @return
+	 */
+	public static String readFile(String filePath, String encoding, int pages, int rows) {
         InputStreamReader isr = null;
         BufferedReader reader = null;
         String line = null;
         StringBuffer sb = new StringBuffer();
+        ArrayList<String> list = new ArrayList<String>();
 		try {
-			isr = new InputStreamReader(new FileInputStream(filename), encoding);
+			isr = new InputStreamReader(new FileInputStream(filePath), encoding);
 	        reader = new BufferedReader(isr);
 	        while ((line = reader.readLine()) != null) {
-	            sb.append(line);
+	            list.add(line);
 	        }
+	        int count = pages * rows;
+	        int size = list.size();
+	        for (int i = 0; i < rows; i++) {
+	        	if (count < size) {
+		        	sb.append("\n");
+					sb.append(list.get(count));
+					count++;
+	        	} else if (count == size) {
+	        		break;
+	        	} else {
+	        		sb.append(END);
+	        		break;
+	        	}
+			}
+	        
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -116,8 +150,8 @@ public class MobileUtil {
 			in = new FileInputStream(file);
 			// FileInputStream fin = openFileInput(fileName);
 			// 用这个就不行了，必须用FileInputStream
-			int length = in.available();
-			byte[] buffer = new byte[length];
+//			int length = in.available();
+			byte[] buffer = new byte[1024];
 			in.read(buffer);
 			res = EncodingUtils.getString(buffer, "GBK");// 依Y.txt的编码类型选择合适的编码，如果不调整会乱码
 		} catch (Exception e) {
