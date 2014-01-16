@@ -7,11 +7,13 @@ import android.text.Spanned;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.TypefaceSpan;
 import android.view.GestureDetector;
+import android.view.GestureDetector.OnDoubleTapListener;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.GestureDetector.OnGestureListener;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -54,9 +56,18 @@ public class DisplayActivity extends Activity implements OnGestureListener {
         super.onCreate(savedInstanceState);
         this.setTheme(R.style.AppTheme);
         setContentView(R.layout.activity_display);
+        setFlipper();
         
-        detector = new GestureDetector(this, this);
+    }
+    
+    public String getExtra(Activity activity, String name) {
+    	return activity.getIntent().getStringExtra(name);
+    }
+
+	private void setFlipper() {
+		detector = new GestureDetector(this, this);
 		flipper = (ViewFlipper) this.findViewById(R.id.ViewFlipper1);
+//		String e = MainActivity.sp.getString("epath", "");
 		String e = getIntent().getStringExtra(MainActivity.ENGLISH);
 		String c = getIntent().getStringExtra(MainActivity.CHINESE);
 		if (!"".equals(e)) {
@@ -70,7 +81,8 @@ public class DisplayActivity extends Activity implements OnGestureListener {
 		} else {
 			flipper.addView(addImageView(R.drawable.datu));
 		}
-    }
+		
+	}
     
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -83,17 +95,19 @@ public class DisplayActivity extends Activity implements OnGestureListener {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
     	switch (item.getItemId()) {
-		case R.id.action_settings:
-			Toast.makeText(this, item.getTitle(), Toast.LENGTH_SHORT).show();
-			if (isNight) {
-				this.setTheme(R.style.AppTheme);
-				isNight = false;
-			} else {
-				this.setTheme(R.style.AppNightTheme);
-				isNight = true;
-			}
+		case R.id.night:
+//			if (isNight) {
+//				Toast.makeText(this, R.string.day, Toast.LENGTH_SHORT).show();
+//				this.setTheme(R.style.AppTheme);
+//				isNight = false;
+//			} else {
+//				Toast.makeText(this, R.string.night, Toast.LENGTH_SHORT).show();
+//				this.setTheme(R.style.AppNightTheme);
+//				isNight = true;
+//			}
+//			this.setContentView(R.layout.activity_display);
+//			setFlipper();
 			break;
-
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -107,7 +121,6 @@ public class DisplayActivity extends Activity implements OnGestureListener {
     	sv.addView(tv);
     	sv.setHorizontalScrollBarEnabled(false);
     	sv.setVerticalScrollBarEnabled(false);
-    	
     	sv.setOnTouchListener(new OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent e) {
@@ -231,5 +244,5 @@ public class DisplayActivity extends Activity implements OnGestureListener {
     public boolean onSingleTapUp(MotionEvent e) {
     	return false;
     }
-
+    
 }

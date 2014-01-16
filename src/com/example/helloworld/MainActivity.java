@@ -16,8 +16,8 @@ public class MainActivity extends Activity {
 	public static final String ENGLISH = "ENGLISH";
 	public static final String CHINESE = "CHINESE";
 
-	SharedPreferences sp = null;
-	Editor editor = null;
+	static SharedPreferences sp = null;
+	static Editor editor = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +64,7 @@ public class MainActivity extends Activity {
     	editor.commit();
     	intent.putExtra(ENGLISH, sp.getString("epath", ""));
     	intent.putExtra(CHINESE, sp.getString("cpath", ""));
+    	
         startActivity(intent);
     }
     
